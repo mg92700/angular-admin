@@ -44,16 +44,15 @@ export class LoginComponent implements OnInit {
       this.authService.login(username, password).subscribe({
         next: data => {
           this.storageService.saveUser(data);
-
           this.isLoginFailed = false;
-          this.isLoggedIn = true;
-          this.authService.setIsLoggedIn(true);
+          this.isLoggedIn = true;      
           this.roles = this.storageService.getUser().roles;
           this.router.navigate(['/accueil']); // Redirect to home page after successful login
         },
         error: err => {
           this.errorMessage = err.error.message;
           this.isLoginFailed = true;
+          
         }
       });
     }
