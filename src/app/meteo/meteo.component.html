@@ -1,21 +1,39 @@
-<p>meteo works!</p>
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
-METEO
+<!-- meteo.component.html -->
+<div>
+    <h2>Liste des données météo</h2>
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>Ville</th>
+            <th>Proba Rain</th>
+            <th>Proba Frost</th>
+            <th>Proba Fog</th>
+            <th>Proba Wind 70</th>
+            <th>Proba Wind 100</th>
+            <th>TSOIL1</th>
+            <th>Temp2m</th>
+            <th>INSEE</th>
+            <th>Date Saving</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let meteo of meteoData">
+            <td>{{ meteo.id }}</td>
+            <td>{{ meteo.city }}</td>
+            <td>{{ meteo.probarain }}</td>
+            <td>{{ meteo.probafrost }}</td>
+            <td>{{ meteo.probafog }}</td>
+            <td>{{ meteo.probawind70 }}</td>
+            <td>{{ meteo.probawind100 }}</td>
+            <td>{{ meteo.tsoil1 }}</td>
+            <td>{{ meteo.temp2m }}</td>
+            <td>{{ meteo.insee }}</td>
+            <td>{{ meteo.datesaving }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  

@@ -3,8 +3,8 @@ import { Router} from '@angular/router';
 import { Subscription } from 'rxjs';
 
 import { EventBusService } from './_shared/event-bus.service';
-import StorageService from './_services/storage-service';
-import { AuthService } from './_services/auth.service';
+import StorageService from './_services/session/storage-service';
+import { AuthService } from './_services/authentification/auth.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
