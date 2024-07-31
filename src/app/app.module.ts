@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { LoginComponent } from './login/login.component';
@@ -11,6 +11,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatSidenavModule } from '@angular/material/sidenav'; // Import du module pour le menu latéral
 import { MatListModule } from '@angular/material/list'; // Import du module pour mat-nav-list
+import { AuthInterceptor } from './guards/auth-interceptor';
 
 
 
@@ -31,7 +32,7 @@ import { MatListModule } from '@angular/material/list'; // Import du module pour
     BrowserAnimationsModule,
     MatListModule
   ],
-  providers: [httpInterceptorProviders, provideAnimationsAsync()],
+  providers: [ { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }, provideAnimationsAsync()],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

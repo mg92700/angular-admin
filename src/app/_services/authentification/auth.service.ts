@@ -17,8 +17,8 @@ export class AuthService {
  
   constructor(private http: HttpClient) {}
 
-  login(email: string, password: string): Observable<any> {
-    return this.http.post(
+  login(email: string, password: string): Observable<AuthResponse> {
+    return this.http.post<AuthResponse>(
        "/rest/auth/login",
       {
         email,
@@ -26,9 +26,30 @@ export class AuthService {
       },
       httpOptions
     ).pipe(
-      tap(() => this.isLoggedInSubject.next(true)) // Met à jour l'état de connexion à true
+      tap(response => {
+        // Assurez-vous d'accéder à la bonne propriété de la réponse
+        const token = response.token; // Ajustez ici en fonction de la structure de votre réponse
+        if (token) {
+          localStorage.setItem('authToken', token);
+          this.isLoggedInSubject.next(true);
+        }
+      })
     );
   }
 
+  logout(): void {
+    localStorage.removeItem('authToken');
+    this.isLoggedInSubject.next(false);
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('authToken');
+  }
  
+ 
+}
+
+export interface AuthResponse {
+  token: string;
+  // Ajoutez d'autres propriétés ici si nécessaire
 }

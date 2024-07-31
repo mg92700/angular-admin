@@ -1,31 +1,28 @@
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, throwError } from 'rxjs';
+import { Observable, throwError } from 'rxjs';
+import { catchError } from 'rxjs/operators';
 import { Meteo } from '../model/meteo';
-const httpOptions = {
-  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
+
 @Injectable({
   providedIn: 'root'
 })
-export class MeteoServiceService {
+export class MeteoService {
 
-
+  private apiUrl = '/meteo/all';
+  private httpOptions = {
+    headers: new HttpHeaders({ 'Content-Type': 'application/json' }),
+    'Authorization': `Bearer ${localStorage.getItem('authToken')}`
+  };
 
   constructor(private http: HttpClient) { }
 
-  // Gérer les erreurs de manière générique
-  private handleError(error: any) {
-    console.error('An error occurred', error);
-    return throwError(error);
-  }
 
-   // Récupérer toutes les météos
-   getAllMeteos(): Observable<Meteo[]> {
-    return this.http.get<Meteo[]>('/meteo/all',
-    httpOptions)   
+  // Récupérer toutes les météos
+  getAllMeteos(): Observable<Meteo[]> {
+    return this.http.get<Meteo[]>(this.apiUrl, this.httpOptions)
       .pipe(
-        catchError(this.handleError)
+       
       );
   }
 }

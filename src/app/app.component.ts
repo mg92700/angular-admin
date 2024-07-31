@@ -54,6 +54,7 @@ export class AppComponent {
         this.isLoggedIn = false; // Définir isLoggedIn à false
         this.router.navigate(['/login']); // Redirection vers la page de login
         this.isLoggedIn =false;
+        this.authService.logout();
    
     }
 

@@ -1,32 +1,25 @@
 import { Component, OnInit } from '@angular/core';
-import { MeteoServiceService } from '../_services/meteo/meteo-service.service';
+import { MeteoService } from '../_services/meteo/meteo-service.service';
+import { Meteo } from '../_services/model/meteo';
 
 @Component({
   selector: 'app-meteo',
-  standalone: true,
-  imports: [],
   templateUrl: './meteo.component.html',
-  styleUrl: './meteo.component.css'
+  styleUrls: ['./meteo.component.css']
 })
 export class MeteoComponent implements OnInit {
-  // Déclaration d'une variable pour stocker les données météo
-  meteoData: any; // Vous pouvez remplacer any par le type de données approprié
+  meteoData: Meteo[] = []; // Utilisez le type Meteo pour la variable meteoData
 
-  constructor(private meteoService: MeteoServiceService) { }
+  constructor(private meteoService: MeteoService) { }
 
   ngOnInit(): void {
-    // Appel à une méthode du service pour charger les données météo lors de l'initialisation du composant
     this.loadMeteoData();
   }
 
-  // Méthode pour charger les données météo à partir du service
   loadMeteoData() {
     this.meteoService.getAllMeteos().subscribe(
-      (data) => {
-        this.meteoData = data; // Stocke les données récupérées dans la variable meteoData
-      },
-      (error) => {
-        console.log('Une erreur s\'est produite lors du chargement des données météo : ', error);
+      (data: Meteo[]) => {
+        this.meteoData = data;
       }
     );
   }
